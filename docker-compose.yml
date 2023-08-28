@@ -1,6 +1,6 @@
 version: '3'
 services:
-  db_instance1:
+  db:
     image: postgres:14
     environment:
       POSTGRES_DB: db_instance1
@@ -21,7 +21,7 @@ services:
     networks:
       - odoo_network1
 
-  db_instance2:
+  db:
     image: postgres:14
     environment:
       POSTGRES_DB: db_instance2
