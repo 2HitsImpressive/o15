@@ -1,19 +1,47 @@
 version: '3'
 services:
-  db:
-    image: postgres:13
+  db_instance1:
+    image: postgres:14
     environment:
-      POSTGRES_DB: odoo_instance1
-      POSTGRES_USER: odoo_instance1
-      POSTGRES_PASSWORD: odoo_instance1
-  web:
-    image: odoo:14
+      POSTGRES_DB: odoo_db1
+      POSTGRES_USER: odoo_user1
+      POSTGRES_PASSWORD: odoo_password1
+
+  odoo_instance1:
+    image: odoo:15
     depends_on:
-      - db
+      - db_instance1
+    environment:
+      ODOO_DB_HOST: db_instance1
+      ODOO_DB_PORT: 5432
+      ODOO_DB_USER: odoo_user1
+      ODOO_DB_PASSWORD: odoo_password1
     ports:
       - "8069:8069"
+    networks:
+      - odoo_network1
+
+  db_instance2:
+    image: postgres:14
     environment:
-      HOST: db
-      USER: odoo_instance1
-      PASSWORD: odoo_instance1
-      DB_NAME: odoo_instance1
+      POSTGRES_DB: odoo_db2
+      POSTGRES_USER: odoo_user2
+      POSTGRES_PASSWORD: odoo_password2
+
+  odoo_instance2:
+    image: odoo:16
+    depends_on:
+      - db_instance2
+    environment:
+      ODOO_DB_HOST: db_instance2
+      ODOO_DB_PORT: 5432
+      ODOO_DB_USER: odoo_user2
+      ODOO_DB_PASSWORD: odoo_password2
+    ports:
+      - "8071:8069"
+    networks:
+      - odoo_network2
+
+networks:
+  odoo_network1:
+  odoo_network2:
