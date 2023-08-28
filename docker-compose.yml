@@ -3,7 +3,7 @@ services:
   db_instance1:
     image: postgres:14
     environment:
-      POSTGRES_DB: odoo_db1
+      POSTGRES_DB: db_instance1
       POSTGRES_USER: odoo_user1
       POSTGRES_PASSWORD: odoo_password1
 
@@ -24,7 +24,7 @@ services:
   db_instance2:
     image: postgres:14
     environment:
-      POSTGRES_DB: odoo_db2
+      POSTGRES_DB: db_instance2
       POSTGRES_USER: odoo_user2
       POSTGRES_PASSWORD: odoo_password2
 
