@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: odoo_user1
       POSTGRES_PASSWORD: odoo_password1
 
-  odoo_instance1:
+  web:
     image: odoo:15
     depends_on:
       - db_instance1
@@ -20,28 +20,5 @@ services:
       - "8069:8069"
     networks:
       - odoo_network1
-
-  db:
-    image: postgres:14
-    environment:
-      POSTGRES_DB: db_instance2
-      POSTGRES_USER: odoo_user2
-      POSTGRES_PASSWORD: odoo_password2
-
-  odoo_instance2:
-    image: odoo:16
-    depends_on:
-      - db_instance2
-    environment:
-      ODOO_DB_HOST: db_instance2
-      ODOO_DB_PORT: 5432
-      ODOO_DB_USER: odoo_user2
-      ODOO_DB_PASSWORD: odoo_password2
-    ports:
-      - "8071:8069"
-    networks:
-      - odoo_network2
-
 networks:
   odoo_network1:
-  odoo_network2:
