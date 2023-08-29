@@ -1,36 +1,30 @@
 version: '3.8'
-
 services:
-  postgres:
-    image: postgres:14.2
-    ports:
-      - 5432:5432
-    restart: always
-
-  odoo-15:
+  odoo:
+    container_name: v15
     image: odoo:15.0
+    depends_on:
+      - db
     ports:
-      - 8069:8069
+      - 8069:8069"
     volumes:
-      - odoo-15-data:/var/lib/odoo
+      - odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+      - ./addons-customize:/mnt/extra-addons-customize
+    entrypoint: "/usr/bin/odoo -c /etc/odoo/odoo.conf"
+  db:
+    container_name: pg1
+    image: postgres:14.0
     environment:
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-      - POSTGRES_DB=odoo
-      - POSTGRES_USER=odoo
-      - POSTGRES_PASSWORD=odoo
-    restart: always
-
-  odoo-16:
-    image: odoo:16.0
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo_db
+      - POSTGRES_USER=odoo_db
+      - PGDATA=/var/lib/postgresql/data/pgdata
     ports:
-      - 8071:8069
+      - "5435:5432"
     volumes:
-      - odoo-16-data:/var/lib/odoo
-    environment:
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-      - POSTGRES_DB=odoo
-      - POSTGRES_USER=odoo
-      - POSTGRES_PASSWORD=odoo
-    restart: always
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+volumes:
+  odoo-db-data:
+  odoo-web-data:
