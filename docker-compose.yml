@@ -24,7 +24,7 @@ services:
   odoo-16:
     image: odoo:16.0
     ports:
-      - 8070:8069
+      - 8071:8069
     volumes:
       - odoo-16-data:/var/lib/odoo
     environment:
