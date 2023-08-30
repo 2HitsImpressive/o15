@@ -17,7 +17,7 @@ services:
     container_name: db15
     image: postgres:14.0
     environment:
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=postgresdb
       - POSTGRES_PASSWORD=odoo_db
       - POSTGRES_USER=odoo_db
       - PGDATA=/var/lib/postgresql/data/pgdata
